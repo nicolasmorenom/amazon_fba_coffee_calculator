@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Amazon FBA Coffee Cost Calculator</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  h1, h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  h2 {
+    font-size: 1.5em;
+    margin-top: 30px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+  th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: 500;
+  }
+  tr:hover {
+    background-color: #f8f8f8;
+  }
+  .input-cell {
+    padding: 8px;
+  }
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+  }
+  .formula-cell {
+    padding: 8px;
+    font-weight: 500;
+    color: #007bff;
+  }
+  .result-cell {
+    padding: 8px;
+    font-weight: 700;
+    color: #27ae60;
+  }
+  .notes-box {
+    background-color: #e3f2fd;
+    padding: 15px;
+    border-left: 4px solid #2196f3;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+  .notes-box h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 600px) {
+    .container {
+      padding: 10px;
+    }
+    table {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Amazon FBA Coffee Cost Calculator</h1>
+    <p>This calculator helps you estimate the costs and profitability of selling coffee bags on Amazon FBA.  Enter your product details to get an estimate.</p>
+
+    <h2>Input Data</h2>
+    <table>
+      <tr>
+        <th>Parameter</th>
+        <th>Input</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>Selling Price per Bag ($)</td>
+        <td class="input-cell"><input type="number" id="sellingPrice" value="15"></td>
+        <td>The price you will sell each bag of coffee for on Amazon.</td>
+      </tr>
+      <tr>
+        <td>Production Cost per Bag ($)</td>
+        <td class="input-cell"><input type="number" id="productionCost" value="6"></td>
+        <td>The cost to produce or acquire each bag of coffee.</td>
+      </tr>
+       <tr>
+        <td>Number of Bags in First Shipment</td>
+        <td class="input-cell"><input type="number" id="shipmentQuantity" value="100"></td>
+        <td>The number of coffee bags in your initial shipment to Amazon FBA.</td>
+      </tr>
+      <tr>
+        <td>FBA Fulfillment Fee per Bag ($)</td>
+        <td class="input-cell"><input type="number" id="fulfillmentFee" value="4.50"></td>
+        <td>The estimated fee Amazon charges for picking, packing, and shipping each bag.  Use the Amazon FBA Revenue Calculator for a more precise value.</td>
+      </tr>
+       <tr>
+        <td>Box Length (in inches)</td>
+        <td class="input-cell"><input type="number" id="boxLength" value="12"></td>
+        <td>The length of the shipping box.</td>
+      </tr>
+      <tr>
+        <td>Box Width (in inches)</td>
+        <td class="input-cell"><input type="number" id="boxWidth" value="10"></td>
+        <td>The width of the shipping box.</td>
+      </tr>
+      <tr>
+        <td>Box Height (in inches)</td>
+         <td class="input-cell"><input type="number" id="boxHeight" value="8"></td>
+        <td>The height of the shipping box.</td>
+      </tr>
+      <tr>
+        <td>Box Weight (lbs)</td>
+        <td class="input-cell"><input type="number" id="boxWeight" value="20"></td>
+        <td>The weight of the shipping box.</td>
+      </tr>
+      <tr>
+        <td>Monthly Seller Account Fee ($)</td>
+        <td class="input-cell"><input type="number" id="accountFee" value="39.99"></td>
+        <td>Your monthly Amazon Professional Seller account fee.</td>
+      </tr>
+        <tr>
+        <td>Estimated Monthly Storage Fee ($)</td>
+        <td class="input-cell"><input type="number" id="storageFee" value="5.00"></td>
+        <td>The estimated cost to store your inventory in Amazon's fulfillment centers for one month.</td>
+      </tr>
+      <tr>
+        <td>Shipping Cost to Amazon FBA ($)</td>
+        <td class="input-cell"><input type="number" id="shippingCost" value="100"></td>
+        <td>The cost to ship your entire initial shipment to Amazon.</td>
+      </tr>
+    </table>
+
+    <h2>Calculated Results</h2>
+    <table>
+      <tr>
+        <th>Parameter</th>
+        <th>Formula</th>
+        <th>Result</th>
+      </tr>
+      <tr>
+        <td>Amazon Referral Fee per Bag ($)</td>
+        <td class="formula-cell">Selling Price per Bag * 0.08 (if Selling Price &#60;= $15), Selling Price per Bag * 0.15 (if Selling Price > $15)</td>
+        <td class="result-cell" id="referralFee"></td>
+      </tr>
+      <tr>
+        <td>Total Production Cost ($)</td>
+        <td class="formula-cell">Production Cost per Bag * Number of Bags in First Shipment</td>
+        <td class="result-cell" id="totalProductionCost"></td>
+      </tr>
+      <tr>
+        <td>Total Amazon Referral Fees ($)</td>
+        <td class="formula-cell">Amazon Referral Fee per Bag * Number of Bags in First Shipment</td>
+        <td class="result-cell" id="totalReferralFees"></td>
+      </tr>
+      <tr>
+        <td>Total Amazon FBA Fulfillment Fees ($)</td>
+        <td class="formula-cell">FBA Fulfillment Fee per Bag * Number of Bags in First Shipment</td>
+        <td class="result-cell" id="totalFulfillmentFees"></td>
+      </tr>
+       <tr>
+        <td>Total Revenue ($)</td>
+        <td class="formula-cell">Selling Price per Bag * Number of Bags in First Shipment</td>
+        <td class="result-cell" id="totalRevenue"></td>
+      </tr>
+      <tr>
+        <td>Total Estimated Costs (Excluding Shipping) ($)</td>
+        <td class="formula-cell">Total Production Cost + Total Amazon Referral Fees + Total Amazon FBA Fulfillment Fees + Monthly Seller Account Fee + Estimated Monthly Storage Fee</td>
+        <td class="result-cell" id="totalCostsExShipping"></td>
+      </tr>
+      <tr>
+         <td>Total Estimated Costs (Including Shipping) ($)</td>
+        <td class="formula-cell">Total Production Cost + Total Amazon Referral Fees + Total Amazon FBA Fulfillment Fees + Monthly Seller Account Fee + Estimated Monthly Storage Fee + Shipping Cost to Amazon FBA</td>
+        <td class="result-cell" id="totalCostsIncShipping"></td>
+      </tr>
+      <tr>
+        <td>Estimated Gross Profit (Excluding Shipping) ($)</td>
+        <td class="formula-cell">Total Revenue - Total Estimated Costs (Excluding Shipping)</td>
+        <td class="result-cell" id="grossProfitExShipping"></td>
+      </tr>
+       <tr>
+        <td>Estimated Gross Profit (Including Shipping) ($)</td>
+        <td class="formula-cell">Total Revenue - Total Estimated Costs (Including Shipping)</td>
+        <td class="result-cell" id="grossProfitIncShipping"></td>
+      </tr>
+      <tr>
+        <td>Gross Profit per Bag (Excluding Shipping) ($)</td>
+        <td class="formula-cell">Estimated Gross Profit (Excluding Shipping) / Number of Bags in First Shipment</td>
+        <td class="result-cell" id="profitPerBagExShipping"></td>
+      </tr>
+       <tr>
+        <td>Gross Profit per Bag (Including Shipping) ($)</td>
+        <td class="formula-cell">Estimated Gross Profit (Including Shipping) / Number of Bags in First Shipment</td>
+        <td class="result-cell" id="profitPerBagIncShipping"></td>
+      </tr>
+    </table>
+
+    <div class="notes-box">
+      <h3>Important Notes:</h3>
+      <ul>
+        <li><strong>FBA Fulfillment Fees:</strong>  The FBA Fulfillment Fee is an estimate.  Use the <a href="https://sellercentral.amazon.com/gp/help/external/GPDC3KPYAGDTVDJP?locale=en-US" target="_blank">Amazon FBA Revenue Calculator</a> in Seller Central for the most accurate fees based on your product's dimensions and weight.</li>
+         <li><strong>Box Dimensions and Weight:</strong> Providing accurate box dimensions (length, width, height) and weight is crucial for precise FBA fee calculation. Amazon uses these to determine the size tier of your shipment, which directly impacts costs.</li>
+        <li><strong>Shipping Costs:</strong>  "Shipping Cost to Amazon FBA" is an estimate.  Obtain actual shipping quotes from your chosen carrier.</li>
+        <li><strong>Storage Fees:</strong>  Storage fees can vary.  Higher volumes and longer storage times increase these fees.</li>
+        <li><strong>Referral Fees:</strong>  The referral fee for coffee is 8% for items selling for $15.00 or less, and 15% for items above $15.00.</li>
+        <li><strong>Other Costs:</strong>  This calculator does not include potential costs such as advertising, returns processing, or long-term storage fees.</li>
+        <li><strong>Seller Account Fee:</strong> The monthly seller account fee is pro-rated over the month.  If you sell multiple shipments in a month, the cost per shipment will be lower.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function calculateCosts() {
+      const sellingPrice = parseFloat(document.getElementById("sellingPrice").value);
+      const productionCost = parseFloat(document.getElementById("productionCost").value);
+      const shipmentQuantity = parseFloat(document.getElementById("shipmentQuantity").value);
+      const fulfillmentFee = parseFloat(document.getElementById("fulfillmentFee").value);
+      const accountFee = parseFloat(document.getElementById("accountFee").value);
+      const storageFee = parseFloat(document.getElementById("storageFee").value);
+      const shippingCost = parseFloat(document.getElementById("shippingCost").value);
+      const boxLength = parseFloat(document.getElementById("boxLength").value);
+      const boxWidth = parseFloat(document.getElementById("boxWidth").value);
+      const boxHeight = parseFloat(document.getElementById("boxHeight").value);
+      const boxWeight = parseFloat(document.getElementById("boxWeight").value);
+
+
+      const referralFee = sellingPrice <= 15 ? sellingPrice * 0.08 : sellingPrice * 0.15;
+      const totalProductionCost = productionCost * shipmentQuantity;
+      const totalReferralFees = referralFee * shipmentQuantity;
+      const totalFulfillmentFees = fulfillmentFee * shipmentQuantity;
+      const totalRevenue = sellingPrice * shipmentQuantity;
+      const totalCostsExShipping = totalProductionCost + totalReferralFees + totalFulfillmentFees + accountFee + storageFee;
+      const totalCostsIncShipping = totalCostsExShipping + shippingCost;
+      const grossProfitExShipping = totalRevenue - totalCostsExShipping;
+      const grossProfitIncShipping = totalRevenue - totalCostsIncShipping;
+      const profitPerBagExShipping = grossProfitExShipping / shipmentQuantity;
+      const profitPerBagIncShipping = grossProfitIncShipping / shipmentQuantity;
+
+
+      document.getElementById("referralFee").textContent = referralFee.toFixed(2);
+      document.getElementById("totalProductionCost").textContent = totalProductionCost.toFixed(2);
+      document.getElementById("totalReferralFees").textContent = totalReferralFees.toFixed(2);
+      document.getElementById("totalFulfillmentFees").textContent = totalFulfillmentFees.toFixed(2);
+      document.getElementById("totalRevenue").textContent = totalRevenue.toFixed(2);
+      document.getElementById("totalCostsExShipping").textContent = totalCostsExShipping.toFixed(2);
+      document.getElementById("totalCostsIncShipping").textContent = totalCostsIncShipping.toFixed(2);
+      document.getElementById("grossProfitExShipping").textContent = grossProfitExShipping.toFixed(2);
+      document.getElementById("grossProfitIncShipping").textContent = grossProfitIncShipping.toFixed(2);
+      document.getElementById("profitPerBagExShipping").textContent = profitPerBagExShipping.toFixed(2);
+      document.getElementById("profitPerBagIncShipping").textContent = profitPerBagIncShipping.toFixed(2);
+    }
+
+
+    document.getElementById("sellingPrice").addEventListener("change", calculateCosts);
+    document.getElementById("productionCost").addEventListener("change", calculateCosts);
+    document.getElementById("shipmentQuantity").addEventListener("change", calculateCosts);
+    document.getElementById("fulfillmentFee").addEventListener("change", calculateCosts);
+    document.getElementById("accountFee").addEventListener("change", calculateCosts);
+    document.getElementById("storageFee").addEventListener("change", calculateCosts);
+     document.getElementById("shippingCost").addEventListener("change", calculateCosts);
+    document.getElementById("boxLength").addEventListener("change", calculateCosts);
+    document.getElementById("boxWidth").addEventListener("change", calculateCosts);
+    document.getElementById("boxHeight").addEventListener("change", calculateCosts);
+     document.getElementById("boxWeight").addEventListener("change", calculateCosts);
+
+
+    calculateCosts();
+  </script>
+</body>
+</html>
