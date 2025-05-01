@@ -146,6 +146,11 @@
         <td class="input-cell"><input type="number" id="boxWeight" value="20"></td>
         <td>The weight of the shipping box.</td>
       </tr>
+       <tr>
+        <td>Number of Boxes</td>
+        <td class="input-cell"><input type="number" id="numberOfBoxes" value="1"></td>
+        <td>The number of boxes in your shipment.</td>
+      </tr>
       <tr>
         <td>Monthly Seller Account Fee ($)</td>
         <td class="input-cell"><input type="number" id="accountFee" value="39.99"></td>
@@ -232,6 +237,7 @@
       <ul>
         <li><strong>FBA Fulfillment Fees:</strong>  The FBA Fulfillment Fee is an estimate.  Use the <a href="https://sellercentral.amazon.com/gp/help/external/GPDC3KPYAGDTVDJP?locale=en-US" target="_blank">Amazon FBA Revenue Calculator</a> in Seller Central for the most accurate fees based on your product's dimensions and weight.</li>
          <li><strong>Box Dimensions and Weight:</strong> Providing accurate box dimensions (length, width, height) and weight is crucial for precise FBA fee calculation. Amazon uses these to determine the size tier of your shipment, which directly impacts costs.</li>
+          <li><strong>Number of Boxes:</strong>  The number of boxes you ship can influence shipping costs and how Amazon receives your inventory, but it does not directly change the per-unit FBA fulfillment fees.</li>
         <li><strong>Shipping Costs:</strong>  "Shipping Cost to Amazon FBA" is an estimate.  Obtain actual shipping quotes from your chosen carrier.</li>
         <li><strong>Storage Fees:</strong>  Storage fees can vary.  Higher volumes and longer storage times increase these fees.</li>
         <li><strong>Referral Fees:</strong>  The referral fee for coffee is 8% for items selling for $15.00 or less, and 15% for items above $15.00.</li>
@@ -254,6 +260,7 @@
       const boxWidth = parseFloat(document.getElementById("boxWidth").value);
       const boxHeight = parseFloat(document.getElementById("boxHeight").value);
       const boxWeight = parseFloat(document.getElementById("boxWeight").value);
+      const numberOfBoxes = parseFloat(document.getElementById("numberOfBoxes").value);
 
 
       const referralFee = sellingPrice <= 15 ? sellingPrice * 0.08 : sellingPrice * 0.15;
@@ -294,6 +301,7 @@
     document.getElementById("boxWidth").addEventListener("change", calculateCosts);
     document.getElementById("boxHeight").addEventListener("change", calculateCosts);
      document.getElementById("boxWeight").addEventListener("change", calculateCosts);
+     document.getElementById("numberOfBoxes").addEventListener("change", calculateCosts);
 
 
     calculateCosts();
